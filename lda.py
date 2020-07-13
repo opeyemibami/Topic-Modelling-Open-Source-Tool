@@ -1,6 +1,6 @@
 from sklearn.decomposition import LatentDirichletAllocation
 
-def lda_model(df,encoded_data,feature_names,number_of_topics=5,top_k=10):
+def lda_train(df,encoded_data,feature_names,number_of_topics=5,top_k=10):
     top_n_words = []
     topic_top_words = []
     LDA = LatentDirichletAllocation(random_state=2020,n_components=number_of_topics)
