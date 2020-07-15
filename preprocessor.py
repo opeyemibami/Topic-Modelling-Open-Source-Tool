@@ -1,18 +1,14 @@
-import pandas as pd 
-import numpy as np
 from nltk.stem.snowball import SnowballStemmer
 from nltk.corpus import stopwords
 import re
-from tensorflow.keras.preprocessing.text import Tokenizer
 import streamlit as st
 
 
 # Gensim
-import gensim, spacy, logging, warnings
+import gensim, spacy, warnings
 import gensim.corpora as corpora
 from gensim.utils import lemmatize, simple_preprocess
 from gensim.models import TfidfModel
-import matplotlib.pyplot as plt
 warnings.filterwarnings("ignore",category=DeprecationWarning)
 
 stop_words = list(set(stopwords.words('english')))

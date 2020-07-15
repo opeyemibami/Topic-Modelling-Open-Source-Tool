@@ -182,7 +182,7 @@ def vis_count_n_weight(n_topics, lda_model,clean_text):
             ax.legend(loc='upper left'); ax_twin.legend(loc='upper right')
 
     fig.tight_layout(w_pad=2)    
-    fig.suptitle('Word Count and Importance of Topic Keywords', fontsize=22, y=1.05)   
+    fig.suptitle('Word Count and Importance of Topic Keywords\n ', fontsize=22, y=1)   
     
      #export chart as pdf
     with PdfPages(chart3_path) as export_pdf:
@@ -228,7 +228,6 @@ def generate_chart():
     pdf1File.close()
     pdf2File.close()
     pdf3File.close()
-    st.success('charts successfully generated')
     return pdf1Reader
         
 
