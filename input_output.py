@@ -8,20 +8,6 @@ def select_text_feature(df):
     st.write(df.head())
     return df,text_col
 
-# def rename_column(df,text_col):
-#     columns = df.columns
-#     if text_col != 'text' and 'text' not in columns:
-#         df = df.rename(columns={text_col:'text'})
-#         st.success(f"'{text_col}' column successfully renamed to 'text'")
-#         # df = pd.DataFrame(df['text'])
-#         st.write(df.head())
-#     elif text_col != 'text' and 'text' in columns:
-#         st.write(f"Warning!!! {text_col} column cannot be renamed. The default text column will be used if not changed")
-#     elif text_col == 'text':
-#         st.write("Warning!!! 'text' column already exist, All column names has to be unique. The default text column will be used if not changed")
-        
-#     return df
-
 # @st.cache
 def get_input(ss_text,is_batch=False,text_column = "text"):
     if is_batch:

@@ -1,15 +1,16 @@
-from sklearn.decomposition import LatentDirichletAllocation
+import pandas as pd
+import gensim
+def lda_train(corpus,id2word,number_of_topics=5):
+    lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
+                                           id2word=id2word,
+                                           num_topics=number_of_topics, 
+                                           random_state=2020,
+                                           update_every=1,
+                                           chunksize=10,
+                                           passes=10,
+                                           alpha='symmetric',
+                                           iterations=100,
+                                           per_word_topics=True)
+    return lda_model
 
-def lda_train(df,encoded_data,feature_names,number_of_topics=5,top_k=10):
-    top_n_words = []
-    topic_top_words = []
-    LDA = LatentDirichletAllocation(random_state=2020,n_components=number_of_topics)
-    topics = LDA.fit_transform(encoded_data).argmax(axis=1)
 
-    for topic in LDA.components_:
-        top_n_words.append([feature_names[i] for i in topic.argsort()[-top_k:]])
-
-    for topic in topics:
-        topic_top_words.append(top_n_words[topic])
-
-    return topics,topic_top_words
