@@ -26,6 +26,12 @@ url_pattern = re.compile(re.compile(r'https?://\S+|www\.S+'))
 email_pattern = re.compile(re.compile(r'\S*@\S*\s?'))
 
 def clean_data(df,feature):
+    """
+    funtion clean the data by removing unwanted words, patterns and puntuations  
+
+    out: df : pandas dataframe
+    
+    """
     doc = []
     for entry in df[feature]:
         
@@ -41,6 +47,12 @@ def clean_data(df,feature):
     return df
 
 def encode(text_list,mode='Term Frequency'):
+    """
+    funtion encode cleaned data 
+
+    out: id2word, corpus : encoded data 
+    
+    """
     # Create Dictionary
     id2word = corpora.Dictionary(text_list)
 
@@ -54,11 +66,9 @@ def encode(text_list,mode='Term Frequency'):
         corpus = tfidf[BoW_corpus]
     return id2word, corpus
 
-
-
-############################################
 # ENCODER SECTION #
 def extract_features(df,feature,normalization_mthd ='Lemmatization' ,mode='Term Frequency',allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
+    
     """Form Bigrams, Trigrams and (Lemmatization or stemming)"""
 
     texts_list = []
@@ -95,5 +105,3 @@ def extract_features(df,feature,normalization_mthd ='Lemmatization' ,mode='Term 
     id2word, corpus = encode(texts_list,mode=mode)
     
     return id2word, corpus, texts_list
-
-

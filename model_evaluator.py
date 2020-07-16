@@ -17,17 +17,28 @@ stop_words.extend(['lack', 'make', 'want', 'seem', 'run', 'need', 'even', 'right
 'done', 'try', 'many','from', 'subject', 're', 'edu','some', 'nice', 'thank',
 'think', 'see', 'rather', 'easy', 'easily', 'lot', 'line', 'even', 'also', 'may', 'take', 'come'])
 
+######## chart paths creation ###############
 chart1_path = Path.cwd().joinpath('chart1.pdf')
 chart2_path = Path.cwd().joinpath('chart2.pdf')
 chart3_path = Path.cwd().joinpath('chart3.pdf')
 chart_path = Path.cwd().joinpath('chart.pdf')
 
 def del_charts():
+    """
+    funtion delete charts after downloaded
+
+    """
     charts_list = [chart1_path,chart2_path,chart3_path,chart_path]
     for chart in charts_list:
         chart.unlink()
 
 def get_model_results(corpus, texts,ldamodel=None):
+    """funtion extract model result such as topics, percentage distribution and return it as pandas dataframe
+    in: corpus : encoded features
+    in: text : main text
+    in: ladmodel: the trained model
+    out: datafram
+    """
     
     topics_df = pd.DataFrame()
 
@@ -57,6 +68,12 @@ cols = [color for name, color in mcolors.TABLEAU_COLORS.items()]  # more colors:
 
 
 def vis_distribution(n_topics,topics_df):
+    """
+    funtion visualize topic distribution and export as pdf
+    in: n_topics : int -> number of topics
+    in: topics_df : dataframe formed containing model results 
+    
+    """
     if n_topics % 2 == 0 and n_topics<=6:
         fig, axes = plt.subplots(2,n_topics//2,figsize=(16,14), dpi=160, sharex=True, sharey=True)
     elif n_topics % 2 != 0 and n_topics<=6:
@@ -85,18 +102,20 @@ def vis_distribution(n_topics,topics_df):
     plt.xticks(np.linspace(0,1000,9))
     fig.suptitle('Distribution of Document Word Counts by Dominant Topic', fontsize=22)
 
-    #export chart as pdf
+    
     with PdfPages(chart1_path) as export_pdf:
         export_pdf.savefig()
         # plt.close()
     st.pyplot() 
-    # plt.show()
-
-
-
-
+    
 
 def vis_word_cloud(n_topics,lda_model):
+    """
+    funtion visualize topics dominat words using word cloud and export as pdf
+    in: n_topics : int -> number of topics
+    in: lda_model : trained model 
+    
+    """
 
     cloud = WordCloud(stopwords=stop_words,
                 background_color='white',
@@ -139,12 +158,19 @@ def vis_word_cloud(n_topics,lda_model):
      #export chart as pdf
     with PdfPages(chart2_path) as export_pdf:
         export_pdf.savefig()
-        # plt.close()
+        
 
     st.pyplot() 
-    # plt.show()
+   
 
 def vis_count_n_weight(n_topics, lda_model,clean_text):
+    """
+    funtion visualize word count and importance (weight) and export as pdf
+    in: n_topics : int -> number of topics
+    in: lda_model : trained model 
+    in: clean_text : cleaned text
+    
+    """
     topics = lda_model.show_topics(formatted=False)
     data_flat = [w for w_list in clean_text for w in w_list]
     counter = Counter(data_flat)
@@ -187,13 +213,19 @@ def vis_count_n_weight(n_topics, lda_model,clean_text):
      #export chart as pdf
     with PdfPages(chart3_path) as export_pdf:
         export_pdf.savefig()
-        # plt.close()
+        
 
     st.pyplot() 
-    # export_pdf.savefig()
-    # plt.show()
+
 
 def generate_chart():
+    """
+    funtion generate final chart by combining exported charts 
+
+    out: pdf1Reader : an oped pdf file 
+    
+    """
+    
     pdf1File = open(chart1_path, 'rb')
     pdf2File = open(chart2_path, 'rb')
     pdf3File = open(chart3_path, 'rb')

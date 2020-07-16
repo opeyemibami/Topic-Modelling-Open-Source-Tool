@@ -12,8 +12,16 @@ import time
 
 
 def display_app_header(main_txt,sub_txt,is_sidebar = False):
-    # Open Source Topic Modelling Web App
-    # Build and Evaluate a Topic Model without coding!!!
+    """
+    function to display major headers at user interface
+
+    Parameters
+    ----------
+    main_txt: str -> the major text to be displayed
+    sub_txt: str -> the minor text to be displayed 
+    is_sidebar: bool -> check if its side panel or major panel
+    """
+
     html_temp = f"""
     <div style = "background.color:#054029  ; padding:15px">
     <h2 style = "color:white; text_align:center;"> {main_txt} </h2>
@@ -26,6 +34,13 @@ def display_app_header(main_txt,sub_txt,is_sidebar = False):
         st.markdown(html_temp, unsafe_allow_html = True)
 
 def display_side_panel_header(txt):
+    """
+    function to display minor headers at side panel
+
+    Parameters
+    ----------
+    txt: str -> the text to be displayed
+    """
     st.sidebar.markdown(f'## {txt}')
 
 #Main panel title
@@ -61,7 +76,7 @@ display_app_header(main_txt='How to Contribute',sub_txt='Send Pull Request to Pr
 # Project Version:
 display_app_header(main_txt='Project Version',sub_txt=' 0.1.0 c2020',is_sidebar=True)
 #About Aauthor
-display_app_header(main_txt='About Author',sub_txt='Opeyemi Bamigbade (Yhemmy) is a Data Scientist and ML-Engineer at Data Science Nigeria. Twitter:@opeyemiami    Email:bamigbadeopeyemi@gmail.com',is_sidebar=True)
+display_app_header(main_txt='About Author',sub_txt='Opeyemi Bamigbade (Yhemmy) is a Data Scientist and ML-Engineer at Data Science Nigeria. Twitter:@opeyemibami    Email:bamigbadeopeyemi@gmail.com',is_sidebar=True)
 
 #session state 
 ss = SessionState.get(output_df = pd.DataFrame(), 
@@ -69,10 +84,8 @@ df_raw = pd.DataFrame(),
 _model=None,
 text_col='text',
 is_file_uploaded=False,
-
 id2word = None, 
 corpus= None,
-
 is_valid_text_feat = False,
 to_clean_data = False,
 to_encode = False,
@@ -80,19 +93,21 @@ to_train = False,
 to_evaluate = False,
 to_visualize = False,
 to_download_report = False,
-
-
 df = pd.DataFrame(),
 txt = 'Paste the text to analyze here',
 default_txt = 'Paste the text to analyze here',
 clean_text = None,
 ldamodel = None,
-topics_df = None,
-chart_pdf = None)
-
-
+topics_df = None)
 
 def display_header(header):
+    """
+    function to display minor headers at user interface main pannel 
+
+    Parameters
+    ----------
+    header: str -> the major text to be displayed
+    """
      
     #view clean data
     html_temp = f"""
@@ -103,6 +118,12 @@ def display_header(header):
     st.markdown(html_temp, unsafe_allow_html = True)
 
 def space_header():
+    """
+    function to create space using html 
+
+    Parameters
+    ----------
+    """
     hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -114,6 +135,14 @@ def space_header():
 
 st.cache()
 def check_input_method(data_input_mthd):
+    """
+    function check user input method if uploading or pasting
+
+    Parameters
+    ----------
+    data_input_mthd: str -> the default displayed text for decision making
+    """
+
     if data_input_mthd=='Copy-Paste text':
         df,ss.txt = io.get_input(ss_text= ss.txt)
 
@@ -138,8 +167,11 @@ def get_table_download_link(df):
 
     return href
 
-def get_chat_download_link(chart_pdf):
-    # base64_pdf = None
+def get_chat_download_link():
+    """Generates a link allowing the data in a given PDF to be downloaded
+    in:  PDF file
+    out: href string
+    """
     with open("chart.pdf", "rb") as pdf_file:
         base64_pdf = base64.b64encode(pdf_file.read()).decode()
     href = f'<a href="data:file/pdf;base64,{base64_pdf }" download="Charts.pdf" >Download charts file</a>' 
@@ -253,10 +285,10 @@ if ss.to_download_report:
     space_header()
     button_download = st.button('Generate Report Sheet')
     if button_download and Path(Path.cwd().joinpath('chart1.pdf')).is_file():
-        ss.chart_pdf = mv.generate_chart()
+        mv.generate_chart()
         st.success('Report successfuly generated, click the links below to download.')
         st.markdown(get_table_download_link(ss.topics_df), unsafe_allow_html=True)
-        st.markdown(get_chat_download_link(ss.chart_pdf), unsafe_allow_html=True)
+        st.markdown(get_chat_download_link(), unsafe_allow_html=True)
         mv.del_charts()
         st.balloons()
     elif button_download and not Path(Path.cwd().joinpath('chart1.pdf')).is_file():
