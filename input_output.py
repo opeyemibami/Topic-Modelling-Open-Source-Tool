@@ -38,5 +38,3 @@ def get_input(ss_text,is_batch=False,text_column = "text"):
         ss_text = st.text_area('Text to analyze',ss_text)
         df = pd.DataFrame(data=[ss_text],columns=[text_column])
         return df,ss_text
-
-

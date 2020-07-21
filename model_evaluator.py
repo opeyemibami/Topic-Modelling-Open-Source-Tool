@@ -261,6 +261,3 @@ def generate_chart():
     pdf2File.close()
     pdf3File.close()
     return pdf1Reader
-        
-
-        
