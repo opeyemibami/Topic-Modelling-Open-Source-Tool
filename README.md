@@ -8,4 +8,7 @@
 - Generate and Download model Report as CSV and PDF files 
 
 Application can be accessed via: https://topic-modelling-tool.herokuapp.com/
+
+## Read detailed project article published with [TowardsAi](https://medium.com/towards-artificial-intelligence/topic-modeling-open-source-tool-fbdcc06f43f6) 
+
 ### feel free to contribute !!!
