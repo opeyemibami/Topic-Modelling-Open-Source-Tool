@@ -1,3 +1,5 @@
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/opeyemibami/topic-modelling-open-source-tool/master/app.py/+/)
+
 # Topic-Modelling-Open-Source-Tool
 ![img](https://github.com/opeyemibami/Topic-Modelling-Open-Source-Tool/blob/master/img/img1.png)
 ### This is an open source project on Topic Modelling to ease and fast-track the iterative processes involve at building and evaluating a topic model 
