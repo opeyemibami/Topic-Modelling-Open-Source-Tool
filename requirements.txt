@@ -6,7 +6,7 @@ gensim==3.6.0
 matplotlib==3.0.1
 seaborn==0.10.1
 wordcloud==1.7.0
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 nltk==3.5
 spacy==2.3.1
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz#egg=en_core_web_sm==2.3.1
